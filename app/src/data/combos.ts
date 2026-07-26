@@ -1,3 +1,4 @@
+import { assetUrl } from "@/lib/assetUrl";
 import { rgb01, tokens } from "@/styles/tokens";
 
 /**
@@ -25,7 +26,8 @@ export interface ComboPreset {
   verifiedBy: string;
 }
 
-const TEST_ASSET = "/svg/test-shape.svg";
+// public 配下は必ず assetUrl を通す（base が付かず 404 になるため）
+const TEST_ASSET = assetUrl("/svg/test-shape.svg");
 
 export const combos: readonly ComboPreset[] = [
   /* ---- overlay: 成立する唯一の重ね合わせ（T-3） ---- */

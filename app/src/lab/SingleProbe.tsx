@@ -1,6 +1,7 @@
 import { Suspense, lazy, useEffect, useMemo, useState, type ComponentType, type ReactNode } from "react";
 import { allSlugs, componentMeta } from "@/data/components.generated";
 import { loadEffect } from "@/core/effectRegistry";
+import { assetUrl } from "@/lib/assetUrl";
 import { tokens } from "@/styles/tokens";
 import { FpsMeter, box, button, h2, label, note } from "./ui";
 
@@ -114,7 +115,7 @@ export function SingleProbe() {
       <div style={{ position: "relative", overflow: "hidden", border: "1px solid var(--color-border)", borderRadius: 12, background: "var(--color-surface)", height: 420 }}>
         <Suspense key={slug} fallback={<Subject />}>
           {isObject ? (
-            <Effect src="/svg/test-shape.svg" background="" style={{ width: "100%", height: "100%" }} />
+            <Effect src={assetUrl("/svg/test-shape.svg")} background="" style={{ width: "100%", height: "100%" }} />
           ) : (
             <Effect style={{ width: "100%", height: "100%" }}>{<Subject />}</Effect>
           )}

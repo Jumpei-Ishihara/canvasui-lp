@@ -1,6 +1,7 @@
 import { Suspense, lazy, useEffect, useMemo, useState, type ComponentType, type ReactNode } from "react";
 import { allSlugs, componentMeta } from "@/data/components.generated";
 import { loadEffect } from "@/core/effectRegistry";
+import { assetUrl } from "@/lib/assetUrl";
 import { tokens } from "@/styles/tokens";
 import { FpsMeter, box, h2, note, label, select as selectStyle } from "./ui";
 
@@ -34,7 +35,7 @@ const FILL = { width: "100%", height: "100%" } as const;
  * 本番素材は調達中のため、検証専用の単純な図形を使う。
  * ?coreSrc= で差し替えられる。
  */
-const TEST_ASSET = "/svg/test-shape.svg";
+const TEST_ASSET = assetUrl("/svg/test-shape.svg");
 const wrappers = allSlugs.filter((s) => componentMeta[s].family === "wrapper");
 const objects = allSlugs.filter((s) => componentMeta[s].family === "object");
 
