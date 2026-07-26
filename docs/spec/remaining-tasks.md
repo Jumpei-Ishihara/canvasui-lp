@@ -75,12 +75,23 @@
 
 | # | 項目 | 担当 | 詳細手順 |
 |---|---|---|---|
-| **C-1a** | **リポジトリ名の決定** | 🧑 | ユーザーサイト（`jumpei-ishihara.github.io` リポジトリ）か、プロジェクトサイト（任意名）か。**プロジェクトサイトなら Workflow の `VITE_BASE` をその名前に変更する**（現在は仮に `/canvasui-lp/`） |
-| **C-1b** | リポジトリ作成と Pages 有効化 | 🧑 | ① GitHub で作成 → ② Settings → Pages → Source を **GitHub Actions** に設定 → ③ このディレクトリを push |
+| ~~**C-1a**~~ | ~~リポジトリ名の決定~~ | ✅ | **決定: `canvasui-lp`（プロジェクトサイト）**。`VITE_BASE=/canvasui-lp/` を Workflow に確定。公開 URL は `https://jumpei-ishihara.github.io/canvasui-lp/` |
+| ~~**C-1b-1**~~ | ~~git init と初回コミット~~ | ✅ | **完了**。`main` ブランチ・111 ファイル・`node_modules` 混入なし。CI と同じ手順（tsc → test → build）がローカルで通ることを確認済み |
+| **C-1b-2** | **GitHub 側の作業** | 🧑 | ① `Jumpei-Ishihara/canvasui-lp` を作成（**空リポジトリ**。README 等を作らない）<br>② Settings → Pages → Source を **GitHub Actions** に<br>③ 下記コマンドで push |
 | **C-2** | Origin Trial トークン取得 | 🧑 | [Chrome Origin Trials](https://developer.chrome.com/origintrials) で **HTML-in-Canvas** を選び、オリジン **`https://jumpei-ishihara.github.io`** で登録。トークンと**失効日**を共有 |
 | **C-3 / C-4** | トークン埋め込み・OGP 絶対 URL 化 | 🤖 | トークンを受領後すぐ対応 |
 | **C-5** | ST-33 / ST-34 | 🤝 | 🧑 デプロイ → 🤖 トークン有無の両方で挙動確認 |
 | **C-6** | 失効日の管理 | 🧑 | カレンダー登録。**失効すると 22 種が停止**（内容は読める） |
+
+### push コマンド
+
+```bash
+git remote add origin https://github.com/Jumpei-Ishihara/canvasui-lp.git
+git push -u origin main
+```
+
+push すると Workflow が走り、型チェック → テスト → ビルドが通れば自動で公開されます。
+**外向きの操作なので私は実行していません。** ご自身で実行してください。
 
 > ### ⚠️ Origin Trial のオリジンについて
 > OT トークンは**オリジン単位**で、パスは含みません。
