@@ -78,10 +78,22 @@
 | ~~**C-1a**~~ | ~~リポジトリ名の決定~~ | ✅ | **決定: `canvasui-lp`（プロジェクトサイト）**。`VITE_BASE=/canvasui-lp/` を Workflow に確定。公開 URL は `https://jumpei-ishihara.github.io/canvasui-lp/` |
 | ~~**C-1b-1**~~ | ~~git init と初回コミット~~ | ✅ | **完了**。`main` ブランチ・111 ファイル・`node_modules` 混入なし。CI と同じ手順（tsc → test → build）がローカルで通ることを確認済み |
 | **C-1b-2** | **GitHub 側の作業** | 🧑 | ① `Jumpei-Ishihara/canvasui-lp` を作成（**空リポジトリ**。README 等を作らない）<br>② Settings → Pages → Source を **GitHub Actions** に<br>③ 下記コマンドで push |
-| **C-2** | Origin Trial トークン取得 | 🧑 | [Chrome Origin Trials](https://developer.chrome.com/origintrials) で **HTML-in-Canvas** を選び、オリジン **`https://jumpei-ishihara.github.io`** で登録。トークンと**失効日**を共有 |
-| **C-3 / C-4** | トークン埋め込み・OGP 絶対 URL 化 | 🤖 | トークンを受領後すぐ対応 |
-| **C-5** | ST-33 / ST-34 | 🤝 | 🧑 デプロイ → 🤖 トークン有無の両方で挙動確認 |
-| **C-6** | 失効日の管理 | 🧑 | カレンダー登録。**失効すると 22 種が停止**（内容は読める） |
+| ~~**C-2**~~ | ~~Origin Trial トークン取得~~ | ✅ | **完了（2026-07-26）**。origin `https://jumpei-ishihara.github.io:443` / feature `HTMLInCanvas` |
+| ~~**C-3 / C-4**~~ | ~~トークン埋め込み・OGP 絶対 URL 化~~ | ✅ | `index.html` に埋め込み。`og:url` / `canonical` を絶対 URL 化 |
+| **C-5** | ST-33 / ST-34 | 🤖 | デプロイ後に実施 |
+| **C-6** | **失効日の管理** | 🧑 | **⚠️ 2026-10-20（JST 09:00）に失効**。カレンダー登録を推奨 |
+
+### ⏰ Origin Trial の失効
+
+```
+失効日 : 2026-10-20（UTC 00:00 / JST 09:00）
+残り   : 約 85 日（2026-07-26 時点）
+提供   : Chrome 154 まで
+```
+
+**失効すると 22 種が一斉にフォールバック表示になります。**
+内容は読めるので壊れはしませんが、見た目は大きく変わります。
+失効前に「正式版になっているか」を確認し、なっていなければ延長申請してください。
 
 ### push コマンド
 

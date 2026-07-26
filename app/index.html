@@ -10,8 +10,9 @@
       content="html-in-canvas と WebGL による Canvas UI の全 25 コンポーネントを実際に動かして紹介し、組み合わせたときに何が起きるかを実機の検証結果とともにまとめたページです。"
     />
     <meta name="theme-color" content="#0B0B0D" />
+    <link rel="canonical" href="https://jumpei-ishihara.github.io/canvasui-lp/" />
 
-    <!-- OGP（NFR-5.2）。og:url と og:image はデプロイ先ドメイン確定後に絶対 URL を入れる（未決 Q-1） -->
+    <!-- OGP（NFR-5.2） -->
     <meta property="og:type" content="website" />
     <meta property="og:site_name" content="Canvas UI 全機能デモ" />
     <meta property="og:title" content="Canvas UI 全機能デモ — 25 種の紹介と組み合わせ検証" />
@@ -19,16 +20,27 @@
       property="og:description"
       content="全 25 コンポーネントを実際に動かして紹介し、組み合わせの可否を実機検証にもとづいて示します。"
     />
+    <meta property="og:url" content="https://jumpei-ishihara.github.io/canvasui-lp/" />
     <meta property="og:locale" content="ja_JP" />
     <meta name="twitter:card" content="summary_large_image" />
+    <!-- og:image は素材確定後に絶対 URL を入れる（B-1 / 未決 Q-6） -->
 
     <!--
       Chrome Origin Trial: HTML-in-Canvas
       25 コンポーネント中 22 種がこの API に依存する。
-      デプロイ先ドメインを決めたうえでトークンを取得し、下の行を有効化すること（M3-04 / 未決 Q-1）。
-      未設定でもエラーにはならず、素の HTML にフォールバックする（docs/01-overview.md §3）。
+
+        origin : https://jumpei-ishihara.github.io:443
+        feature: HTMLInCanvas
+        失効日 : 2026-10-20（UTC 00:00 / JST 09:00）
+
+      ⚠️ 失効すると 22 種が一斉にフォールバック表示になる。
+         内容は読めるが見た目は大きく変わるため、失効前に延長するか、
+         正式版になっているかを確認すること（docs/01-overview.md §3）。
     -->
-    <!-- <meta http-equiv="origin-trial" content="ORIGIN_TRIAL_TOKEN_HERE" /> -->
+    <meta
+      http-equiv="origin-trial"
+      content="Ajzdy+5zMvEG+5yPNGw8M97QvgskGu/5n5xqhGQfr9xB8NXpb/vB6TSXFZRHHFTDhz3tiWip5JE2acurX+NsdA8AAAByeyJvcmlnaW4iOiJodHRwczovL2p1bXBlaS1pc2hpaGFyYS5naXRodWIuaW86NDQzIiwiZmVhdHVyZSI6IkhUTUxJbkNhbnZhcyIsImV4cGlyeSI6MTc5MjQ1NDQwMCwiaXNTdWJkb21haW4iOnRydWV9"
+    />
   </head>
   <body>
     <div id="root"></div>

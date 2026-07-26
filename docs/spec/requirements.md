@@ -113,7 +113,7 @@
 ### 5.2 外部依存
 | 依存 | 内容 | リスク |
 |---|---|---|
-| Chrome Origin Trial | HTML-in-Canvas（Chrome 148〜150） | **有効期限あり。失効すると全 22 種がフォールバックする** |
+| Chrome Origin Trial | HTML-in-Canvas（Chrome 154 まで） | **取得済み（2026-07-26）。失効 2026-10-20。失効すると全 22 種がフォールバックする** |
 | `canvasui.dev` レジストリ | コンポーネント取得元 | 取得は初回のみ。以後はローカルソース |
 | `three` / `@types/three` | Object 系 3 種 | 通常の npm 依存 |
 | Draco デコーダ（gstatic CDN） | Draco 圧縮 GLB 使用時のみ | 自前ホストで回避可 |
