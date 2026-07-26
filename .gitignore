@@ -1,0 +1,16 @@
+# 依存とビルド成果物
+node_modules/
+dist/
+
+# OS / エディタ
+.DS_Store
+*.local
+.vscode/
+.idea/
+
+# ローカル設定
+.env
+.env.local
+
+# Claude Code のセッション設定（launch.json は共有してよいので除外しない）
+.claude/settings.local.json

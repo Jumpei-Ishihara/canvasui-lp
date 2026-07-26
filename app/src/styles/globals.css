@@ -1,0 +1,114 @@
+/*
+ * グローバルスタイル（ui-design.md §2〜§4）
+ *
+ * ここの --color-* は src/styles/tokens.ts と同じ値でなければならない。
+ * ずれは tokens.test.ts の「CSS 変数との整合」テストが検出する。
+ */
+
+:root {
+  /* 配色（ADR-6: ダーク固定） */
+  --color-bg: #0b0b0d;
+  --color-surface: #141417;
+  --color-raised: #1c1c21;
+  --color-border: #2a2a31;
+  --color-fg: #f5f5f4;
+  --color-muted: #a1a1aa;
+  --color-dim: #71717a;
+  --color-accent: #066aff;
+  --color-accentLit: #5aa2ff;
+  --color-warn: #f5a524;
+  --color-danger: #f04438;
+  --color-ok: #3dd68c;
+
+  /* 書体（ui-design.md §3.1） */
+  --font-sans: -apple-system, BlinkMacSystemFont, "Hiragino Sans",
+    "Noto Sans JP", "Yu Gothic UI", sans-serif;
+  --font-mono: ui-monospace, "SF Mono", "Cascadia Mono", Menlo,
+    "Noto Sans Mono CJK JP", monospace;
+
+  /* 余白（ui-design.md §4.1） */
+  --sp-1: 4px;
+  --sp-2: 8px;
+  --sp-3: 12px;
+  --sp-4: 16px;
+  --sp-5: 24px;
+  --sp-6: 32px;
+  --sp-7: 48px;
+  --sp-8: 64px;
+  --sp-9: 96px;
+  --sp-10: 128px;
+
+  /* コンテナ幅（ui-design.md §4.2） */
+  --w-narrow: 720px;
+  --w-default: 1080px;
+  --w-wide: 1400px;
+
+  color-scheme: dark;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  margin: 0;
+  background: var(--color-bg);
+  color: var(--color-fg);
+  font-family: var(--font-sans);
+  font-size: 1rem;
+  line-height: 1.75;
+  -webkit-font-smoothing: antialiased;
+}
+
+h1,
+h2,
+h3 {
+  line-height: 1.2;
+  letter-spacing: -0.015em;
+  margin: 0;
+}
+
+code,
+pre {
+  font-family: var(--font-mono);
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+}
+
+/*
+ * grid / flex のアイテムは既定で min-width:auto。
+ * 中身が親より広いと、overflow-x:auto を付けても効かずページ全体が横に伸びる。
+ * セクション直下の要素は縮めるようにしておく（375px で横スクロールを出さないため）。
+ */
+main > section,
+main > section > * {
+  min-width: 0;
+}
+
+/* フォーカス表示（REQ-6.5 / ui-design.md §6.1）
+   accent ではなく accentLit を使う。コントラスト 7.54:1 を確保するため。 */
+:focus-visible {
+  outline: 2px solid var(--color-accentLit);
+  outline-offset: 2px;
+}
+
+/* REQ-6.1 — 加えて RenderBudget 側で capacity も下げる */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}

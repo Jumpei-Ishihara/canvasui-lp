@@ -1,0 +1,68 @@
+name: Deploy to GitHub Pages
+
+# 公開先: Jumpei-Ishihara の GitHub Pages
+#
+# 【設定が必要な箇所】
+#   VITE_BASE — プロジェクトサイトなら "/<リポジトリ名>/"、ユーザーサイトなら "/"
+#   誤ると全アセットが 404 になる。
+#
+# lab.html（検証ハーネス）は既定で成果物に含めない。
+# 公開したい場合は build ステップに VITE_INCLUDE_LAB=1 を足す。
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: app
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+          cache-dependency-path: app/package-lock.json
+
+      - run: npm ci
+
+      # 品質ゲート。ここが落ちたらデプロイしない
+      - name: 型チェック
+        run: npx tsc --noEmit
+      - name: テスト
+        run: npm test
+      # build は内部で validate-catalog（V-1〜V-6）を実行する
+      - name: ビルド
+        run: npm run build
+        env:
+          # リポジトリ名 canvasui-lp のプロジェクトサイト
+          # → 公開 URL は https://jumpei-ishihara.github.io/canvasui-lp/
+          VITE_BASE: /canvasui-lp/
+
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: app/dist
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v4
