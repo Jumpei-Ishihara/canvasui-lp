@@ -15,6 +15,9 @@ export const componentMeta: Record<string, ComponentMeta> = {
     acceptsChildren: true,
     installCommand: "npx shadcn@latest add @canvas-ui/asciify-react",
     docsUrl: "https://canvasui.dev/docs/components/asciify",
+    pointerDependent: true,
+    touchReady: false,
+    touchLimited: true,
   },
   "bend": {
     slug: "bend",
@@ -28,6 +31,9 @@ export const componentMeta: Record<string, ComponentMeta> = {
     acceptsChildren: true,
     installCommand: "npx shadcn@latest add @canvas-ui/bend-react",
     docsUrl: "https://canvasui.dev/docs/components/bend",
+    pointerDependent: true,
+    touchReady: false,
+    touchLimited: true,
   },
   "blaze": {
     slug: "blaze",
@@ -41,6 +47,9 @@ export const componentMeta: Record<string, ComponentMeta> = {
     acceptsChildren: true,
     installCommand: "npx shadcn@latest add @canvas-ui/blaze-react",
     docsUrl: "https://canvasui.dev/docs/components/blaze",
+    pointerDependent: false,
+    touchReady: false,
+    touchLimited: false,
   },
   "bubble": {
     slug: "bubble",
@@ -54,6 +63,9 @@ export const componentMeta: Record<string, ComponentMeta> = {
     acceptsChildren: true,
     installCommand: "npx shadcn@latest add @canvas-ui/bubble-react",
     docsUrl: "https://canvasui.dev/docs/components/bubble",
+    pointerDependent: true,
+    touchReady: false,
+    touchLimited: true,
   },
   "cloth": {
     slug: "cloth",
@@ -67,6 +79,9 @@ export const componentMeta: Record<string, ComponentMeta> = {
     acceptsChildren: true,
     installCommand: "npx shadcn@latest add @canvas-ui/cloth-react",
     docsUrl: "https://canvasui.dev/docs/components/cloth",
+    pointerDependent: true,
+    touchReady: false,
+    touchLimited: true,
   },
   "clouds": {
     slug: "clouds",
@@ -80,6 +95,9 @@ export const componentMeta: Record<string, ComponentMeta> = {
     acceptsChildren: true,
     installCommand: "npx shadcn@latest add @canvas-ui/clouds-react",
     docsUrl: "https://canvasui.dev/docs/components/clouds",
+    pointerDependent: true,
+    touchReady: false,
+    touchLimited: true,
   },
   "dithered-object": {
     slug: "dithered-object",
@@ -93,6 +111,9 @@ export const componentMeta: Record<string, ComponentMeta> = {
     acceptsChildren: false,
     installCommand: "npx shadcn@latest add @canvas-ui/dithered-object-react",
     docsUrl: "https://canvasui.dev/docs/components/dithered-object",
+    pointerDependent: false,
+    touchReady: true,
+    touchLimited: false,
   },
   "droplets": {
     slug: "droplets",
@@ -106,6 +127,9 @@ export const componentMeta: Record<string, ComponentMeta> = {
     acceptsChildren: true,
     installCommand: "npx shadcn@latest add @canvas-ui/droplets-react",
     docsUrl: "https://canvasui.dev/docs/components/droplets",
+    pointerDependent: true,
+    touchReady: false,
+    touchLimited: true,
   },
   "frost": {
     slug: "frost",
@@ -119,6 +143,9 @@ export const componentMeta: Record<string, ComponentMeta> = {
     acceptsChildren: true,
     installCommand: "npx shadcn@latest add @canvas-ui/frost-react",
     docsUrl: "https://canvasui.dev/docs/components/frost",
+    pointerDependent: true,
+    touchReady: false,
+    touchLimited: true,
   },
   "glass": {
     slug: "glass",
@@ -132,6 +159,9 @@ export const componentMeta: Record<string, ComponentMeta> = {
     acceptsChildren: true,
     installCommand: "npx shadcn@latest add @canvas-ui/glass-react",
     docsUrl: "https://canvasui.dev/docs/components/glass",
+    pointerDependent: true,
+    touchReady: false,
+    touchLimited: true,
   },
   "glass-object": {
     slug: "glass-object",
@@ -145,6 +175,9 @@ export const componentMeta: Record<string, ComponentMeta> = {
     acceptsChildren: false,
     installCommand: "npx shadcn@latest add @canvas-ui/glass-object-react",
     docsUrl: "https://canvasui.dev/docs/components/glass-object",
+    pointerDependent: false,
+    touchReady: true,
+    touchLimited: false,
   },
   "glitch": {
     slug: "glitch",
@@ -158,6 +191,9 @@ export const componentMeta: Record<string, ComponentMeta> = {
     acceptsChildren: true,
     installCommand: "npx shadcn@latest add @canvas-ui/glitch-react",
     docsUrl: "https://canvasui.dev/docs/components/glitch",
+    pointerDependent: false,
+    touchReady: false,
+    touchLimited: false,
   },
   "grid": {
     slug: "grid",
@@ -171,6 +207,9 @@ export const componentMeta: Record<string, ComponentMeta> = {
     acceptsChildren: true,
     installCommand: "npx shadcn@latest add @canvas-ui/grid-react",
     docsUrl: "https://canvasui.dev/docs/components/grid",
+    pointerDependent: true,
+    touchReady: false,
+    touchLimited: true,
   },
   "hex-float": {
     slug: "hex-float",
@@ -184,6 +223,9 @@ export const componentMeta: Record<string, ComponentMeta> = {
     acceptsChildren: true,
     installCommand: "npx shadcn@latest add @canvas-ui/hex-float-react",
     docsUrl: "https://canvasui.dev/docs/components/hex-float",
+    pointerDependent: true,
+    touchReady: false,
+    touchLimited: true,
   },
   "laser": {
     slug: "laser",
@@ -197,6 +239,9 @@ export const componentMeta: Record<string, ComponentMeta> = {
     acceptsChildren: true,
     installCommand: "npx shadcn@latest add @canvas-ui/laser-react",
     docsUrl: "https://canvasui.dev/docs/components/laser",
+    pointerDependent: false,
+    touchReady: false,
+    touchLimited: false,
   },
   "liquid": {
     slug: "liquid",
@@ -210,6 +255,9 @@ export const componentMeta: Record<string, ComponentMeta> = {
     acceptsChildren: true,
     installCommand: "npx shadcn@latest add @canvas-ui/liquid-react",
     docsUrl: "https://canvasui.dev/docs/components/liquid",
+    pointerDependent: true,
+    touchReady: false,
+    touchLimited: true,
   },
   "magnify": {
     slug: "magnify",
@@ -223,6 +271,9 @@ export const componentMeta: Record<string, ComponentMeta> = {
     acceptsChildren: true,
     installCommand: "npx shadcn@latest add @canvas-ui/magnify-react",
     docsUrl: "https://canvasui.dev/docs/components/magnify",
+    pointerDependent: true,
+    touchReady: false,
+    touchLimited: true,
   },
   "particle-object": {
     slug: "particle-object",
@@ -236,6 +287,9 @@ export const componentMeta: Record<string, ComponentMeta> = {
     acceptsChildren: false,
     installCommand: "npx shadcn@latest add @canvas-ui/particle-object-react",
     docsUrl: "https://canvasui.dev/docs/components/particle-object",
+    pointerDependent: true,
+    touchReady: true,
+    touchLimited: false,
   },
   "particle-reveal": {
     slug: "particle-reveal",
@@ -249,6 +303,9 @@ export const componentMeta: Record<string, ComponentMeta> = {
     acceptsChildren: true,
     installCommand: "npx shadcn@latest add @canvas-ui/particle-reveal-react",
     docsUrl: "https://canvasui.dev/docs/components/particle-reveal",
+    pointerDependent: true,
+    touchReady: false,
+    touchLimited: true,
   },
   "particle-scroll": {
     slug: "particle-scroll",
@@ -262,6 +319,9 @@ export const componentMeta: Record<string, ComponentMeta> = {
     acceptsChildren: true,
     installCommand: "npx shadcn@latest add @canvas-ui/particle-scroll-react",
     docsUrl: "https://canvasui.dev/docs/components/particle-scroll",
+    pointerDependent: false,
+    touchReady: false,
+    touchLimited: false,
   },
   "peel": {
     slug: "peel",
@@ -275,6 +335,9 @@ export const componentMeta: Record<string, ComponentMeta> = {
     acceptsChildren: true,
     installCommand: "npx shadcn@latest add @canvas-ui/peel-react",
     docsUrl: "https://canvasui.dev/docs/components/peel",
+    pointerDependent: true,
+    touchReady: false,
+    touchLimited: true,
   },
   "retro-dither": {
     slug: "retro-dither",
@@ -288,6 +351,9 @@ export const componentMeta: Record<string, ComponentMeta> = {
     acceptsChildren: true,
     installCommand: "npx shadcn@latest add @canvas-ui/retro-dither-react",
     docsUrl: "https://canvasui.dev/docs/components/retro-dither",
+    pointerDependent: true,
+    touchReady: false,
+    touchLimited: true,
   },
   "ripple": {
     slug: "ripple",
@@ -301,6 +367,9 @@ export const componentMeta: Record<string, ComponentMeta> = {
     acceptsChildren: true,
     installCommand: "npx shadcn@latest add @canvas-ui/ripple-react",
     docsUrl: "https://canvasui.dev/docs/components/ripple",
+    pointerDependent: true,
+    touchReady: false,
+    touchLimited: true,
   },
   "shatter": {
     slug: "shatter",
@@ -314,6 +383,9 @@ export const componentMeta: Record<string, ComponentMeta> = {
     acceptsChildren: true,
     installCommand: "npx shadcn@latest add @canvas-ui/shatter-react",
     docsUrl: "https://canvasui.dev/docs/components/shatter",
+    pointerDependent: true,
+    touchReady: false,
+    touchLimited: true,
   },
   "vhs": {
     slug: "vhs",
@@ -327,6 +399,9 @@ export const componentMeta: Record<string, ComponentMeta> = {
     acceptsChildren: true,
     installCommand: "npx shadcn@latest add @canvas-ui/vhs-react",
     docsUrl: "https://canvasui.dev/docs/components/vhs",
+    pointerDependent: false,
+    touchReady: false,
+    touchLimited: false,
   },
 };
 

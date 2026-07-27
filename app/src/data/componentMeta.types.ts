@@ -29,4 +29,22 @@ export interface ComponentMeta {
   acceptsChildren: boolean;
   installCommand: string;
   docsUrl: string;
+
+  /**
+   * ポインタ入力に依存するか（pointer / mouse 系のリスナーを持つ）。
+   * ベンダーソースを走査して自動判定する。
+   */
+  pointerDependent: boolean;
+  /**
+   * touch-action を指定しており、タッチのドラッグを自前で受け取れるか。
+   * 指定が無いとブラウザがスクロールジェスチャを優先し、
+   * ポインタストリームが pointercancel で途切れる。
+   */
+  touchReady: boolean;
+  /**
+   * タッチ環境で本来の見え方にならないか。
+   * pointerDependent かつ touchReady でない場合に true。
+   * モバイルでの注記表示に使う。
+   */
+  touchLimited: boolean;
 }

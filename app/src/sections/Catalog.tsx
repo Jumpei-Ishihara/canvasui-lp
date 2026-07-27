@@ -63,6 +63,16 @@ export function Catalog() {
                 <p style={{ margin: 0, color: "var(--color-muted)", fontSize: ".9375rem" }}>
                   {meta.description}
                 </p>
+                {/* タッチ環境ではポインタ追従型が本来の見え方にならない。
+                    事実を伝える（touchLimited はベンダーソースの走査で自動判定） */}
+                {isMobile && meta.touchLimited && (
+                  <p style={touchNote}>
+                    この効果は<strong>ポインタの動きに追従</strong>します。
+                    タッチ環境にはホバーが無く、指でなぞるとスクロールが優先されるため、
+                    <strong>本来の見え方にはなりません</strong>。
+                    マウス環境でご覧ください。
+                  </p>
+                )}
                 <div style={codeRow}>
                   <code style={{ fontSize: ".8125rem", overflowX: "auto" }}>
                     {meta.installCommand}
@@ -94,6 +104,15 @@ const badge: React.CSSProperties = {
   borderRadius: 4,
   padding: "2px 8px",
   color: "var(--color-muted)",
+};
+const touchNote: React.CSSProperties = {
+  margin: "var(--sp-3) 0 0",
+  padding: "var(--sp-3)",
+  borderLeft: "3px solid var(--color-warn)",
+  background: "var(--color-surface)",
+  color: "var(--color-muted)",
+  fontSize: ".8125rem",
+  lineHeight: 1.7,
 };
 const codeRow: React.CSSProperties = {
   display: "flex",

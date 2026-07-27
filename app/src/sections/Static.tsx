@@ -8,6 +8,7 @@ import { DEFAULT_BUDGET_CONFIG } from "@/core/RenderBudget";
 export function Constraints() {
   const supported = useHtmlInCanvasSupport();
   const objects = allSlugs.filter((s) => componentMeta[s].family === "object");
+  const touchLimited = allSlugs.filter((s) => componentMeta[s].touchLimited);
   const totalOptions = allSlugs.reduce((s, k) => s + componentMeta[k].optionCount, 0);
 
   return (
@@ -70,6 +71,24 @@ export function Constraints() {
           </p>
         </article>
       </div>
+
+      <article style={card}>
+        <h3 style={h3}>タッチ環境での制約</h3>
+        <p style={body}>
+          25 種のうち <strong>{touchLimited.length} 種</strong>はポインタの動きに追従します。
+          タッチにはホバーが無く、指でなぞるとブラウザのスクロールが優先されるため、
+          スマートフォンでは<strong>本来の見え方になりません</strong>。
+        </p>
+        <p style={body}>
+          該当するのは主にレンズ系と撹乱場系です。
+          <strong>アンビエント系・スクロール駆動型・3D の 3 種は影響を受けません</strong>
+          （ポインタに依存しないか、タッチ操作を自前で受け取っているため）。
+        </p>
+        <p style={{ ...body, color: "var(--color-dim)", marginBottom: 0 }}>
+          この判定はライブラリのソースを走査して自動生成しています。
+          対象: {touchLimited.map((s) => componentMeta[s].name).join(" / ")}
+        </p>
+      </article>
 
       <div style={grid3}>
         {[

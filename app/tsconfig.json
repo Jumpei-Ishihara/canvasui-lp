@@ -12,7 +12,18 @@
     "isolatedModules": true,
     "allowImportingTsExtensions": true,
     "baseUrl": ".",
-    "paths": { "@/*": ["./src/*"] }
+    "paths": { "@/*": ["./src/*"] },
+
+    // 読み込むグローバル型を明示する。
+    //
+    // 既定では node_modules/@types 直下の全ディレクトリを型ライブラリとして
+    // 自動で読み込むため、そこに壊れたエントリ（同期ツールが作る "node 2" の
+    // ような複製など）が 1 つでもあると、無関係な TS2688 でビルド全体が落ちる。
+    // 実際にこの環境で 2 度発生した。
+    //
+    // 明示すれば自動走査をやめられ、環境の汚れに影響されなくなる。
+    // モジュールとして import する型（@types/three 等）はここに書く必要はない。
+    "types": ["node", "vite/client"]
   },
-  "include": ["src", "components"]
+  "include": ["src", "scripts"]
 }
