@@ -1,7 +1,16 @@
 import { describe, expect, it } from "vitest";
-import { readFileSync, readdirSync, statSync } from "node:fs";
-import { join, resolve } from "node:path";
 import { assetUrl } from "./assetUrl";
+
+/**
+ * ソースを import.meta.glob で集める。
+ * Vite が設定上のルート基準で解決するため、起動ディレクトリに依存しない。
+ * ベンダー（canvasui）は改変対象外なので除外する。
+ */
+const SOURCES = import.meta.glob("/src/**/*.{ts,tsx}", {
+  query: "?raw",
+  import: "default",
+  eager: true,
+}) as Record<string, string>;
 
 describe("assetUrl", () => {
   it("public 配下のパスに base を付ける", () => {
@@ -30,38 +39,21 @@ describe("assetUrl", () => {
  * base="/" のローカルでは動いてしまうため、静的に検出する。
  */
 describe("public 配下の参照は必ず assetUrl を通す", () => {
-  const SRC = resolve(process.cwd(), "src");
   const PUBLIC_DIRS = ["svg", "models", "images", "draco"];
-
-  function walk(dir: string, out: string[] = []): string[] {
-    for (const name of readdirSync(dir)) {
-      const p = join(dir, name);
-      if (statSync(p).isDirectory()) {
-        // ベンダー（Canvas UI 本体）は改変しないので対象外
-        if (name === "canvasui") continue;
-        walk(p, out);
-      } else if (/\.tsx?$/.test(name) && !/\.test\.tsx?$/.test(name)) {
-        out.push(p);
-      }
-    }
-    return out;
-  }
 
   it("素の絶対パスで public 配下を参照しているファイルが無い", () => {
     const pattern = new RegExp(`["'\`]/(${PUBLIC_DIRS.join("|")})/`);
     const offenders: string[] = [];
 
-    for (const file of walk(SRC)) {
-      const code = readFileSync(file, "utf8");
+    for (const [path, code] of Object.entries(SOURCES)) {
+      if (path.includes("/components/canvasui/")) continue; // ベンダーは対象外
+      if (/\.test\.tsx?$/.test(path)) continue;
+
       for (const [i, line] of code.split("\n").entries()) {
-        // assetUrl("...") の中なら OK
-        if (line.includes("assetUrl(")) continue;
-        // 説明コメントは対象外
-        if (/^\s*(\*|\/\/)/.test(line)) continue;
+        if (line.includes("assetUrl(")) continue;      // 通していれば OK
+        if (/^\s*(\*|\/\/)/.test(line)) continue;      // 説明コメントは対象外
         if (pattern.test(line)) {
-          offenders.push(
-            `${file.replace(SRC, "src")}:${i + 1}  ${line.trim().slice(0, 80)}`,
-          );
+          offenders.push(`${path}:${i + 1}  ${line.trim().slice(0, 80)}`);
         }
       }
     }
@@ -71,4 +63,12 @@ describe("public 配下の参照は必ず assetUrl を通す", () => {
       `public 配下は assetUrl() を通すこと:\n${offenders.join("\n")}`,
     ).toEqual([]);
   });
+
+  it("走査対象のファイルを実際に集められている（空振り防止）", () => {
+    const targets = Object.keys(SOURCES).filter(
+      (p) => !p.includes("/components/canvasui/"),
+    );
+    expect(targets.length).toBeGreaterThan(15);
+  });
 });
+

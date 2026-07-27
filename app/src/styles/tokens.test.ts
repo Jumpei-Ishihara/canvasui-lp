@@ -85,13 +85,12 @@ describe("コントラスト（REQ-6.6）", () => {
  */
 describe("globals.css との整合", () => {
   it("全トークンが CSS 変数として同じ値で定義されている", async () => {
+    // CSS は ?raw で読めない（Vite が先に処理して空文字になる）ため fs で読む。
+    // パスは import.meta.dirname 基準にして、起動ディレクトリに依存させない。
     const { readFileSync } = await import("node:fs");
-    const { resolve } = await import("node:path");
-    // vitest は app/ をルートとして実行される
-    const css = readFileSync(
-      resolve(process.cwd(), "src/styles/globals.css"),
-      "utf8",
-    );
+    const { join } = await import("node:path");
+    const css = readFileSync(join(import.meta.dirname, "globals.css"), "utf8");
+    expect(css.length, "globals.css が読めていない").toBeGreaterThan(100);
     for (const [name, hex] of Object.entries(tokens)) {
       const m = css.match(new RegExp(`--color-${name}:\\s*([^;]+);`));
       expect(m, `--color-${name} が globals.css に無い`).not.toBeNull();
