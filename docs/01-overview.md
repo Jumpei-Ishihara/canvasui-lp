@@ -101,6 +101,44 @@ function supportsHtmlInCanvas(): boolean {
 | 完全クリーンアップ | `destroy()` で texture/program/shader/buffer を全削除 | 25/25 |
 | イベント素通し | `pointer-events: none` | 22/22（Wrapper 系） |
 
+### 解像度の非対称 — エフェクト越しの文字が甘く見える ⚠️
+
+全 22 種の Wrapper 系で、**ソースキャンバスと出力キャンバスの解像度が揃っていない**。
+
+```js
+// 出力キャンバス（画面に出す側）— DPR を掛ける
+const dpr = Math.min(window.devicePixelRatio || 1, 2);
+output.width = output.clientWidth * dpr;        // Retina なら 2x
+
+// ソースキャンバス（DOM を取り込む側）— CSS ピクセルのまま
+const cssWidth = Math.max(1, Math.round(source.clientWidth));
+source.width = cssWidth;                        // 1x のまま ★
+```
+
+```
+DOM ──[1x でラスタライズ]──> ソースcanvas ──[texture]──> 2x の出力canvas
+                                                  ↑ ここで 2 倍に拡大される
+```
+
+テクスチャフィルタが `gl.LINEAR` のため、拡大時に補間される。
+結果として **Retina では、エフェクトを通した文字だけが実質半分の解像度**になり、
+ドットが粗く見えるのではなく「にじんで」見える。
+
+**理由（推測）**: `drawElementImage` は DOM 全体のラスタライズで負荷が高い。
+2x にするとピクセル数が 4 倍になるため、性能とのトレードオフと思われる。
+ただしソースに根拠のコメントは無く、意図的な判断か見落としかは判別できない。
+
+#### 本 LP での扱い: **現状維持**（2026-07-26 決定）
+
+修正は `source.width = cssWidth * dpr` の 1 行だが、
+これは `components/canvasui/` の**ベンダーソース改変**にあたる。
+G-4 / NFR-3.2「Canvas UI 本体は改変しない」に反し、
+レジストリからの再取得時に上書きされて更新追従ができなくなる。
+
+「加工されている」表現である以上、多少の甘さは効果の一部とも読めるため、
+**仕様として受け入れる**。`ui-design.md` §3.2 の「被写体の文字は最小 h2 以上」という
+指針は、結果的にこの制約への緩和策としても働いている。
+
 ### 一方で、実装されていないもの ⚠️
 | 機構 | 状況 | 影響 |
 |---|---|---|
