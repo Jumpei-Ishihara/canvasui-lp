@@ -71,7 +71,10 @@ function BoldHeading({ title, sub }: { title: string; sub: string }) {
  * 屈折・分割は色差がないと見えない。大きな色面を必ず置く（ui-design.md §8.1）。
  * ------------------------------------------------------------------ */
 function ColorArtwork() {
-  const art = assets.particleObject;
+  // キービジュアル（asset-1.svg）を使う。
+  // 3D では使えないが、<img> ならブラウザが完全に描画するため
+  // Wrapper 系 22 種の被写体として最も情報量が多い（assets.ts のコメント参照）。
+  const art = assets.colorArtwork;
   const swatches = [
     "var(--color-accent)",
     "var(--color-ok)",
@@ -104,7 +107,11 @@ function ColorArtwork() {
               {art.label}（素材待ち）
             </span>
           ) : (
-            <img src={art.src} alt="" style={{ maxHeight: "100%", objectFit: "contain" }} />
+            <img
+              src={art.src}
+              alt={art.label}
+              style={{ maxHeight: "100%", maxWidth: "100%", objectFit: "contain" }}
+            />
           )}
         </div>
       </div>
