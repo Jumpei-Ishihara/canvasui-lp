@@ -110,6 +110,17 @@ function ColorArtwork() {
             <img
               src={art.src}
               alt={art.label}
+              /* loading="lazy" は試したが取りやめた。
+                 ビューポート内に入っても読み込まれず（complete=false のまま）、
+                 8 枚すべてが未取得になる事象を実機で確認したため。
+                 寸法を予約しても解消しなかった。原因を確定できていない以上、
+                 確実に表示される eager のままにする。
+
+                 キービジュアルは転送 442KB あり初期ロードに乗る。
+                 LCP は 140ms（PT-02 基準 2,500ms）と余裕があるため許容するが、
+                 軽量化するならラスタライズした WebP を用意するのが確実
+                 （SVG の 95% は埋め込み PNG なので、WebP 化で大幅に減らせる）。 */
+              decoding="async"
               style={{ maxHeight: "100%", maxWidth: "100%", objectFit: "contain" }}
             />
           )}
