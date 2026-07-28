@@ -1,4 +1,4 @@
-import { assetUrl } from "@/lib/assetUrl";
+import { assets } from "@/data/assets";
 import { rgb01, tokens } from "@/styles/tokens";
 
 /**
@@ -26,8 +26,12 @@ export interface ComboPreset {
   verifiedBy: string;
 }
 
-// public 配下は必ず assetUrl を通す（base が付かず 404 になるため）
-const TEST_ASSET = assetUrl("/svg/test-shape.svg");
+/**
+ * 素材は assets.ts の一箇所を参照する（G-6）。
+ * 以前はここだけプレースホルダの test-shape.svg を直書きしていたため、
+ * 各コンポーネント単体の節と組み合わせの節で別の被写体が出ていた。
+ * 同じ被写体でないと「効果の差」が読めないので、必ず assets を通すこと。
+ */
 
 export const combos: readonly ComboPreset[] = [
   /* ---- overlay: 成立する唯一の重ね合わせ（T-3） ---- */
@@ -40,7 +44,7 @@ export const combos: readonly ComboPreset[] = [
     outer: { slug: "vhs", props: { speed: 1.0, scanlines: 0.45 } },
     inner: {
       slug: "glass-object",
-      props: { src: TEST_ASSET, tint: "", highlight: tokens.accent, floatIntensity: 1 },
+      props: { src: assets.glassObject.src, tint: "", highlight: tokens.accent, floatIntensity: 1 },
     },
     verifiedBy: "T-3",
   },
@@ -52,7 +56,7 @@ export const combos: readonly ComboPreset[] = [
     outer: { slug: "glitch", props: { intensity: 0.7 } },
     inner: {
       slug: "particle-object",
-      props: { src: TEST_ASSET, count: 40000, size: 1.2, background: "" },
+      props: { src: assets.particleObject.src, count: 40000, size: 1.2, background: "" },
     },
     verifiedBy: "T-3",
   },
@@ -67,7 +71,16 @@ export const combos: readonly ComboPreset[] = [
     },
     inner: {
       slug: "dithered-object",
-      props: { src: "", gridSize: 96, grayscale: true, highlight: tokens.accent },
+      props: {
+        src: assets.ditheredObject.src,
+        // catalog.ts の dithered-object と同じ実測値
+        gridSize: 5,
+        grayscale: true,
+        highlight: tokens.accent,
+        roughness: 0.6,
+        environmentIntensity: 0.14,
+        scale: 3.6,
+      },
     },
     verifiedBy: "T-3",
   },
@@ -80,7 +93,7 @@ export const combos: readonly ComboPreset[] = [
     outer: { slug: "ripple", props: { speed: 1.0, shine: 1.2 } },
     inner: {
       slug: "glass-object",
-      props: { src: TEST_ASSET, tint: "", highlight: tokens.accent, floatIntensity: 1 },
+      props: { src: assets.glassObject.src, tint: "", highlight: tokens.accent, floatIntensity: 1 },
     },
     verifiedBy: "T-3",
   },

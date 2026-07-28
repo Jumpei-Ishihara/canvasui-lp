@@ -137,9 +137,11 @@ Wrapper 系 22 種は「自分の HTML」を描画対象にするため、**中�
 - [x] 色付きイラスト（透過 PNG）→ `app/public/images/character.png` ✅ 入手済み
 - [ ] ロゴのアウトライン化 SVG（`<image>`/`<text>` を含まないもの）→ `app/public/svg/`
       ※ 現状は `logo.png` で代用可だが、輪郭トレースになるため文字が潰れる
-- [ ] GLB モデル 1 点（`DitheredObject` 用・曲面のある単純な形で可）→ `app/public/models/`
+- [x] GLB モデル 1 点（`DitheredObject` 用）→ `app/public/models/glass.glb` ✅ 入手済み
+      ※ 押し出し文字のため面が平らで、1bit ディザの階調が出にくい。
+        曲面のあるモデルを追加できればさらに良くなる（必須ではない）
 - [ ] Draco デコーダの自前ホスト（任意）→ `app/public/draco/`
-- [ ] キャラクター IP の公開可否確認
+- [x] キャラクター IP の公開可否確認 ✅ 問題なしと確認（2026-07-27）
 
 **デザイン**
 - [ ] 背景カラートークンの確定（ダーク固定を推奨）

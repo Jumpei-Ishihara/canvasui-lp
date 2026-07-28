@@ -212,11 +212,23 @@ export const catalog: readonly CatalogEntry[] = [
     slug: "dithered-object",
     subject: "object-stage",
     stage: "square",
+    /**
+     * 値は glass.glb を入れてから実測で決めた。素材が無かった頃の値
+     * （gridSize: 96）は 96px 角の市松模様になり、形が全く読めなかった。
+     *
+     * gridSize はセルの「個数」ではなく一辺のピクセル数（既定 4）。
+     * roughness / environmentIntensity を上げているのは、このモデルの
+     * マテリアルが metallic=1 / roughness=1 のまま書き出されていて、
+     * 既定の environmentIntensity 0.1 では拾う光が無く真っ黒になるため。
+     */
     effectProps: {
       src: assets.ditheredObject.src,
-      gridSize: 96,
+      gridSize: 5,
       grayscale: true,
       highlight: tokens.accent,
+      roughness: 0.6,
+      environmentIntensity: 0.14,
+      scale: 3.6,
     },
   },
 ];

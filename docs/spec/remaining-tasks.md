@@ -48,8 +48,8 @@
 | 用途 | 素材 | 根拠 |
 |---|---|---|
 | **ParticleObject** | `character-sm.png` | **RGB が保持される**ため色付きが活きる。634×900 / 174KB で粒子数も扱いやすい |
-| **GlassObject** | `test-shape.svg` | 色が捨てられシルエットのみ。**実測で `logo.png` は塊状、`asset-1.svg` は板状**になり判別できなかった |
-| **DitheredObject** | 未設定 | **GLB のみ**対応。手元に無いため「素材待ち」表示のまま（REQ-7.3 / 7.4 が働く） |
+| **GlassObject** | `glass.glb` | 画像を渡すとシルエットを一様に押し出すだけ（**実測で `logo.png` は塊状、`asset-1.svg` は板状**）。GLB なら面の向きが場所ごとに変わり、屈折が立体として読める |
+| **DitheredObject** | `glass.glb` | **GLB のみ**対応。GlassObject と同一モデル。同じ被写体を別の効果に通すことで効果そのものの差が読める |
 | **color-artwork 被写体** | `asset-1.svg` | 3D では使えないが `<img>` なら完全描画。Wrapper 系 8 種の被写体として彩度・情報量とも最適 |
 
 > **`asset-1.svg` が 3D で使えない理由（実測）**
@@ -58,11 +58,29 @@
 > **ベクター部分（枠線）だけが押し出された板**になった。
 > 一方ブラウザは SVG を完全に描画するので、`<img>` としては何の問題も無い。
 
+> **`glass.glb` の検査結果（2026-07-28 受領）**
+> Blender（glTF I/O v4.3.47）で作られた押し出し済みの立体文字「ISHIHARA」。
+>
+> | 検査項目 | 結果 |
+> |---|---|
+> | 形式 | GLB v2（宣言長とファイル長が一致） |
+> | 外部 `.bin` / テクスチャ参照 | **0 件（自己完結）** — REQ-11 の制約を満たす |
+> | `extensionsRequired` | なし → **Draco デコーダ不要** |
+> | 規模 | 203KB / 7,788 三角形 / メッシュ 1・マテリアル 1 |
+>
+> マテリアルは `pbrMetallicRoughness` が空、すなわち **metallic=1 / roughness=1** の既定値で
+> 書き出されている。Blender 上の「ガラス」の見た目（transmission）は glTF に載っていない。
+> - **GlassObject** は素材を自前の `MeshPhysicalMaterial`（transmission:1）で置き換えるため影響なし。
+> - **DitheredObject** はモデルのマテリアルをそのまま使うため、既定の
+>   `environmentIntensity: 0.1` では拾う光が無く真っ黒になる。`catalog.ts` 側で
+>   `roughness: 0.6 / environmentIntensity: 0.14` を与えて中間調を作っている。
+
 ### 今後さらに良くするなら
 
-- **GlassObject 用のアウトライン化 SVG** — 塗りのある閉じたパスのみで構成したロゴがあれば、
-  現在の代替図形より本来の見せ方になる
-- **DitheredObject 用の GLB** — 自己完結型（外部 `.bin` / テクスチャ参照なし）
+- **曲面のある GLB** — 1bit ディザは輝度の階調があって初めて模様として見える。
+  押し出し文字は面が平らで階調が乏しく、明るくすると白一色に潰れる
+  （実測: `environmentIntensity` を 0.6 以上にすると模様が消えた）。
+  球や有機的な形状のモデルを足せば DitheredObject 本来の見せ方になる
 
 ## C. 公開準備（M3-04）
 

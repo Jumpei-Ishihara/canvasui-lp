@@ -21,14 +21,22 @@ export type AssetSource =
  */
 export const assets = {
   /**
-   * GlassObject — アルファのシルエットだけが押し出され、色は捨てられる。
-   * ロゴは白フチで文字が繋がり塊状になるため、輪郭の明快な図形を使う。
-   * 実測: logo.png / asset-1.svg はどちらも判別できない形になった。
+   * GlassObject — SVG ではなく GLB を渡す。
+   *
+   * SVG を渡すとアルファのシルエットを押し出すだけになり、奥行きが均一な板になる。
+   * 実測でも logo.png / asset-1.svg は判別できない形になり、代わりに置いていた
+   * test-shape.svg は「意味のない星」でしかなかった。
+   *
+   * glass.glb は Blender で作られた押し出し済みの立体文字なので、
+   * 面の向きが場所ごとに変わる。GlassObject は素材を自前の
+   * MeshPhysicalMaterial（transmission:1）で置き換えるため、
+   * モデル側のマテリアル（metallic=1 の "glass"）は影響しない。
+   * つまり必要なのは形状だけで、この GLB はその条件を満たす。
    */
   glassObject: {
     kind: "static",
-    src: assetUrl("/svg/test-shape.svg"),
-    label: "ガラス化する図形",
+    src: assetUrl("/models/glass.glb"),
+    label: "ガラス化する立体文字",
   },
   /**
    * ParticleObject — RGB が保持されるので色付き素材が活きる。
@@ -42,13 +50,20 @@ export const assets = {
   },
   /**
    * DitheredObject — GLB / glTF のみ。画像・SVG は受け付けない。
-   * 手元に GLB が無いため未設定。src が空でもエラーにはならず、
-   * 「素材待ち」の表示になる（REQ-7.3 / 7.4）。
+   *
+   * glass.glb は要件を満たすことを確認済み:
+   *   - GLB v2、外部 .bin / テクスチャ参照 0 件（自己完結）
+   *   - extensionsRequired なし → Draco デコーダ不要
+   *   - 203KB / 7,788 三角形 / メッシュ 1・マテリアル 1
+   *
+   * GlassObject と同じモデルを使っている。これは手抜きではなく、
+   * 「同じ被写体を別の効果に通す」ことで効果そのものの差が読める、
+   * という組み合わせ研究（03-combination-research.md）の意図に沿う。
    */
   ditheredObject: {
     kind: "static",
-    src: assetUrl(""),
-    label: "3D モデル（GLB）",
+    src: assetUrl("/models/glass.glb"),
+    label: "立体文字（GLB）",
   },
   lensSubject: {
     kind: "static",
